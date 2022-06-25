@@ -30,10 +30,10 @@ Add the token which allows you to write to your helm chart museum
 Add the kubeconfig which you'll use to write to okteto
 `KUBECONFIG=<your okteto kube config>`
 
-## Make mvnw executeable
-`git update-index --chmod=+x mvnw`
-
-(This step should be overcome by an update to the template repo that needs to be verified)
+## GH Token Setup
+Add the token which you'll use to access the repo to determine semantic versioning.  I usually
+use the same token for the chart token.
+`GH_TOKEN=<token with access to the repo>`
 
 ## Setup secrets for okteto to access canister.io
 kubectl create secret --namespace {{ cookiecutter.service_namespace }} docker-registry regcred --docker-server=https://cloud.canister.io:5000 --docker-username=<canister username> --docker-password=<canister password>
