@@ -3,14 +3,6 @@ on:
   push:
     paths:
       - cookiecutter.json
-env:
-  CANISTER_USERNAME: <canister username>
-  CANISTER_PASSWORD: <canister password>
-  CHART_TOKEN: ${{ secrets.REPO_SETUP_TOKEN }}
-  KUBECONFIG: |
-    <kubeconfig>
-  GH_TOKEN: ${{ secrets.REPO_SETUP_TOKEN }}
-
 jobs:
   setup:
     if: ${{ github.repository	!= 'bullyrooks/spring-microservice-template' }}
@@ -97,7 +89,7 @@ jobs:
         uses: kbrashears5/github-action-repo-settings-sync@v1.0.0
         with:
           REPOSITORIES: |
-            bullyrooks/$GITHUB_REPOSITORY
+            ${{ env.GITHUB_REPOSITORY }}
           ALLOW_ISSUES: 'true'
           ALLOW_PROJECTS: 'true'
           ALLOW_WIKI: 'true'
@@ -111,41 +103,6 @@ jobs:
           BRANCH_PROTECTION_CODE_OWNERS: 'false'
           BRANCH_PROTECTION_ENFORCE_ADMINS: 'false'
           TOKEN: ${{ secrets.REPO_SETUP_TOKEN }}
-      - name: set docker username
-        uses: hmanzur/actions-set-secret@v2.0.0
-        with:
-          name: 'CANISTER_USERNAME'
-          value: ${{ env.CANISTER_USERNAME }}
-          repository: bullyrooks/$GITHUB_REPOSITORY
-          token: ${{ secrets.REPO_ACCESS_TOKEN }}
-      - name: set docker password
-        uses: hmanzur/actions-set-secret@v2.0.0
-        with:
-          name: 'CANISTER_PASSWORD'
-          value: ${{ env.CANISTER_PASSWORD }}
-          repository: bullyrooks/$GITHUB_REPOSITORY
-          token: ${{ secrets.REPO_ACCESS_TOKEN }}
-      - name: set chart token
-        uses: hmanzur/actions-set-secret@v2.0.0
-        with:
-          name: 'CHART_TOKEN'
-          value: ${{ env.CHART_TOKEN }}
-          repository: bullyrooks/$GITHUB_REPOSITORY
-          token: ${{ secrets.REPO_ACCESS_TOKEN }}
-      - name: set kubeconfig
-        uses: hmanzur/actions-set-secret@v2.0.0
-        with:
-          name: 'KUBECONFIG'
-          value: ${{ env.KUBECONFIG }}
-          repository: bullyrooks/$GITHUB_REPOSITORY
-          token: ${{ secrets.REPO_ACCESS_TOKEN }}
-      - name: set gh token
-        uses: hmanzur/actions-set-secret@v2.0.0
-        with:
-          name: 'GH_TOKEN'
-          value: ${{ env.GH_TOKEN }}
-          repository: bullyrooks/$GITHUB_REPOSITORY
-          token: ${{ secrets.REPO_ACCESS_TOKEN }}
       - name: Remove secret REPO_SETUP_TOKEN
         # After re-initializing the repository, we can remove the `REPO_SETUP_TOKEN` secret.
         shell: bash
