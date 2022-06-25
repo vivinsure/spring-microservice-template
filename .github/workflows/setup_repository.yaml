@@ -5,6 +5,7 @@ on:
       - cookiecutter.json
 jobs:
   setup:
+    if: ${{ github.repository	!= 'bullyrooks/spring-microservice-template' }}
     name: Reinitialize repository
     runs-on: ubuntu-latest
     env:
