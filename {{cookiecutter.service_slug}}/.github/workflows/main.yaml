@@ -27,7 +27,7 @@ jobs:
         run: npm install -g semantic-release @semantic-release/git @semantic-release/changelog -D
 
       - name: release
-        run: npx semantic-release --branches main
+        run: npx semantic-release
 
       - name: find current version
         uses: actions-ecosystem/action-get-latest-tag@v1
