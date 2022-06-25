@@ -40,28 +40,11 @@ spec:
           env:
           - name: OTEL_SERVICE_NAME
             value: {{ "{{" }} include "{{ cookiecutter.service_slug }}.fullname" . {{ "}}" }}
-          - name: OTEL_EXPORTER_OTLP_ENDPOINT
-            value: "http://logzio-otel-traces:4317"
-          - name: SPRING_DATA_MONGODB_URI
-            valueFrom:
-              secretKeyRef:
-                name: mongo-secrets
-                key: SPRING_DATA_MONGODB_URI
           - name: LOGZIO_LOGGER_TOKEN
             valueFrom:
               secretKeyRef:
                 name: logzio-secrets
                 key: LOGZIO_LOGGER_TOKEN
-          - name: LOGZIO_METRICS_TOKEN
-            valueFrom:
-              secretKeyRef:
-                name: logzio-secrets
-                key: LOGZIO_METRICS_TOKEN
-          - name: SPRING_KAFKA_PROPERTIES_SASL_JAAS_CONFIG
-            valueFrom:
-              secretKeyRef:
-                name: confluent-secrets
-                key: SPRING_KAFKA_PROPERTIES_SASL_JAAS_CONFIG
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness

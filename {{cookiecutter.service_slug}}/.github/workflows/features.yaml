@@ -1,4 +1,4 @@
-name: {{ cookiecutter.service_name }} Feature Branch Build
+name: Feature Branch Build
 
 on:
   push:

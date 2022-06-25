@@ -1,4 +1,4 @@
-name: {{ cookiecutter.service_name }} Main Branch Build
+name: Main Branch Build
 
 on:
   push:
@@ -27,7 +27,7 @@ jobs:
         run: npm install -g semantic-release @semantic-release/git @semantic-release/changelog -D
 
       - name: release
-        run: npx semantic-release
+        run: npx semantic-release --branches main
 
       - name: find current version
         uses: actions-ecosystem/action-get-latest-tag@v1
@@ -109,8 +109,8 @@ jobs:
         uses: WyriHaximus/github-action-helm3@v2
         with:
           exec: |
+            sleep 60s
             helm repo add bullyrooks https://bullyrooks.github.io/helm-charts/
             helm repo update
-            helm upgrade {{ cookiecutter.service_slug }} {{ cookiecutter.service_registry }} --install --version 
-            {%raw%}${{ env.VERSION }}{%endraw%}
+            helm upgrade {{ cookiecutter.service_slug }} {{ cookiecutter.service_registry }} --install --version {%raw%}${{ env.VERSION }}{%endraw%}
           kubeconfig: {%raw%}'${{ secrets.KUBECONFIG }}'{%endraw%}
