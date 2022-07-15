@@ -25,7 +25,7 @@ jobs:
     uses: bullyrooks/service-workflow/.github/workflows/build-image-with-push.yaml@main
     with:
       version: {%raw%}${{ needs.call-get-version.outputs.version }}{%endraw%}
-      image-name: bullyrooks/message-generator
+      image-name: ${{ cookiecutter.service_registry }}
     secrets:
       canister-username: {%raw%}${{ secrets.CANISTER_USERNAME }}{%endraw%}
       canister-password: {%raw%}${{ secrets.CANISTER_PASSWORD }}{%endraw%}
