@@ -7,7 +7,7 @@ on:
       - main
 
 concurrency:
-  group: ci-tests-${{ github.ref }}-1
+  group: {%raw%}ci-tests-${{ github.ref }}-1{%endraw%}
   cancel-in-progress: true
 
 jobs:
