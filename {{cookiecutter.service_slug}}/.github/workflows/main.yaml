@@ -47,6 +47,8 @@ jobs:
     uses: bullyrooks/service-workflow/.github/workflows/okteto-deploy.yaml@main
     with:
       version: {%raw%}${{ needs.call-get-version.outputs.version }}{%endraw%}
+      service-name: {{ cookiecutter.service_slug }}
+      helm-chart: {{ cookiecutter.service_registry }}
     secrets:
       kube-config: {%raw%}${{ secrets.KUBECONFIG }}{%endraw%}
 
