@@ -103,13 +103,3 @@ jobs:
           BRANCH_PROTECTION_CODE_OWNERS: 'false'
           BRANCH_PROTECTION_ENFORCE_ADMINS: 'false'
           TOKEN: ${{ secrets.REPO_SETUP_TOKEN }}
-      - name: Remove secret REPO_SETUP_TOKEN
-        # After re-initializing the repository, we can remove the `REPO_SETUP_TOKEN` secret.
-        shell: bash
-        if: ${{ env.REPO_SETUP_TOKEN }}
-        run: |
-          curl \
-            -X DELETE --fail \
-            -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: token ${{ env.REPO_SETUP_TOKEN }}" \
-            https://api.github.com/repos/$GITHUB_REPOSITORY/actions/secrets/REPO_SETUP_TOKEN
