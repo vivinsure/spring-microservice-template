@@ -1,41 +1,41 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ "{{" }} include "{{ cookiecutter.service_slug }}.fullname" . {{ "}}" }}
+  name: {{ .Values.serviceName }}
   labels:
-    {{ "{{" }}- include "{{ cookiecutter.service_slug }}.labels" . | nindent 4 {{ "}}" }}
+    {{- include "{{ cookiecutter.service_slug }}.labels" . | nindent 4 }}
 spec:
-  {{ "{{" }}- if not .Values.autoscaling.enabled {{ "}}" }}
-  replicas: {{ "{{" }} .Values.replicaCount {{ "}}" }}
-  {{ "{{" }}- end {{ "}}" }}
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
   selector:
     matchLabels:
-      {{ "{{" }}- include "{{ cookiecutter.service_slug }}.selectorLabels" . | nindent 6 {{ "}}" }}
+      {{- include "{{ cookiecutter.service_slug }}.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{ "{{" }}- with .Values.podAnnotations {{ "}}" }}
+      {{- with .Values.podAnnotations }}
       annotations:
-        {{ "{{" }}- toYaml . | nindent 8 {{ "}}" }}
-      {{ "{{" }}- end {{ "}}" }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       labels:
-        {{ "{{" }}- include "{{ cookiecutter.service_slug }}.selectorLabels" . | nindent 8 {{ "}}" }}
+        {{- include "{{ cookiecutter.service_slug }}.selectorLabels" . | nindent 8 }}
     spec:
-      {{ "{{" }}- with .Values.imagePullSecrets {{ "}}" }}
+      {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
-        {{ "{{" }}- toYaml . | nindent 8 {{ "}}" }}
-      {{ "{{" }}- end {{ "}}" }}
-      serviceAccountName: {{ "{{" }} include "{{ cookiecutter.service_slug }}.serviceAccountName" . {{ "}}" }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "{{ cookiecutter.service_slug }}.serviceAccountName" . }}
       securityContext:
-        {{ "{{" }}- toYaml .Values.podSecurityContext | nindent 8 {{ "}}" }}
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ "{{" }} .Chart.Name {{ "}}" }}
+        - name: {{ .Chart.Name }}
           securityContext:
-            {{ "{{" }}- toYaml .Values.securityContext | nindent 12 {{ "}}" }}
-          image: "{{ "{{" }} .Values.image.repository {{ "}}" }}:{{ "{{" }} .Values.image.tag | default .Chart.AppVersion {{ "}}" }}"
-          imagePullPolicy: {{ "{{" }} .Values.image.pullPolicy {{ "}}" }}
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{ "{{" }} .Values.port.containerPort {{ "}}" }}
+              containerPort: {{ .Values.port.containerPort }}
               protocol: TCP
           env:
           livenessProbe:
@@ -51,16 +51,16 @@ spec:
             initialDelaySeconds: 30
             periodSeconds: 10
           resources:
-            {{ "{{" }}- toYaml .Values.resources | nindent 12 {{ "}}" }}
-      {{ "{{" }}- with .Values.nodeSelector {{ "}}" }}
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
       nodeSelector:
-        {{ "{{" }}- toYaml . | nindent 8 {{ "}}" }}
-      {{ "{{" }}- end {{ "}}" }}
-      {{ "{{" }}- with .Values.affinity {{ "}}" }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
       affinity:
-        {{ "{{" }}- toYaml . | nindent 8 {{ "}}" }}
-      {{ "{{" }}- end {{ "}}" }}
-      {{ "{{" }}- with .Values.tolerations {{ "}}" }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
       tolerations:
-        {{ "{{" }}- toYaml . | nindent 8 {{ "}}" }}
-      {{ "{{" }}- end {{ "}}" }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

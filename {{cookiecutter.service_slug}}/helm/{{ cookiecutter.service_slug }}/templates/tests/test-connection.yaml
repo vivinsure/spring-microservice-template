@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{ "{{" }} include "{{ cookiecutter.service_slug }}.fullname" . {{ "}}" }}-test-connection"
+  name: "{{ .Values.serviceName }}-test-connection"
   labels:
-    {{ "{{" }}- include "{{ cookiecutter.service_slug }}.labels" . | nindent 4 {{ "}}" }}
+    {{- include "{{ cookiecutter.service_slug }}.labels" . | nindent 4 }}
   annotations:
     "helm.sh/hook": test
 spec:
@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ "{{" }} include "{{ cookiecutter.service_slug }}.fullname" . {{ "}}" }}:{{ "{{" }} .Values.service.port {{ "}}" }}']
+      args: ['{{ .Values.serviceName }}:{{ .Values.service.port }}']
   restartPolicy: Never
