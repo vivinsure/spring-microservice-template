@@ -10,6 +10,6 @@
 
   "_copy_without_render": [
       "helm/{{ cookiecutter.service_slug }}/templates/*.yaml",
-      "helm/{{ cookiecutter.service_slug }}/templates/test/*"
+      "helm/{{ cookiecutter.service_slug }}/templates/tests/*"
   ]
 }
