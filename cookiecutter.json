@@ -9,7 +9,6 @@
   "githuborg": "bullyrooks",
 
   "_copy_without_render": [
-      "helm/{{ cookiecutter.service_slug }}/templates/*.yaml",
-      "helm/{{ cookiecutter.service_slug }}/templates/tests/*"
+      "helm/{{ cookiecutter.service_slug }}/templates/*"
   ]
 }

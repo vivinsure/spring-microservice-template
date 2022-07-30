@@ -4,7 +4,7 @@ metadata:
   name: {{ .Values.serviceName }}-reader-role-binding
 subjects:
   - kind: ServiceAccount
-    name: {{ include "{{ cookiecutter.service_slug }}.serviceAccountName" . }}
+    name: {{ include "service.serviceAccountName" . }}
     apiGroup: ""
 roleRef:
   kind: Role

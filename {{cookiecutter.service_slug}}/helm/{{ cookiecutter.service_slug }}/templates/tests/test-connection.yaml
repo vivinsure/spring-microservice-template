@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: "{{ .Values.serviceName }}-test-connection"
   labels:
-    {{- include "{{ cookiecutter.service_slug }}.labels" . | nindent 4 }}
+    {{- include "service.labels" . | nindent 4 }}
   annotations:
     "helm.sh/hook": test
 spec:

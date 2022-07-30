@@ -15,7 +15,7 @@ kind: Ingress
 metadata:
   name: {{ .Values.serviceName }}
   labels:
-    {{- include "{{ cookiecutter.service_slug }}.labels" . | nindent 4 }}
+    {{- include "service.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
