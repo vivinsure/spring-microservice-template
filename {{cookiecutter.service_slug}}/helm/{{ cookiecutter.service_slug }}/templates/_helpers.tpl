@@ -21,7 +21,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Selector labels
 */}}
 {{- define "service.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "service.name" . }}
+app.kubernetes.io/name: {{ .Chart.Name }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
@@ -30,7 +30,7 @@ Create the name of the service account to use
 */}}
 {{- define "service.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "service.fullname" .) .Values.serviceAccount.name }}
+{{- default (.Chart.Name) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
