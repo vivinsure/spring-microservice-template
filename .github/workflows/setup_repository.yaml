@@ -91,4 +91,4 @@ jobs:
         shell: bash
         # Remove all files and folder except .git/ and cookiecutter-temp/
         run: |
-          cruft link https://github.com/bullyrooks/spring-microservice-template
+          cruft link https://github.com/bullyrooks/spring-microservice-template --no-input
