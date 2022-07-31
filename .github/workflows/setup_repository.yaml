@@ -86,11 +86,14 @@ jobs:
 
       - name: Install cruft
         run: pip3 install cruft
+      - name: output .json
+        run: cat cookiecutter.json
+
       - name: Link to template via cruft
         shell: bash
         # Remove all files and folder except .git/ and cookiecutter-temp/
         run: |
-          cruft link https://github.com/bullyrooks/spring-microservice-template --no-input
+          cruft link https://github.com/bullyrooks/spring-microservice-template --config-file cookiecutter.json --no-input
       - name: Reinitialize git repository
         shell: bash
         # Reinitialize git after scaffolding this repository.
