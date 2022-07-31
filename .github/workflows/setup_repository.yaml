@@ -52,6 +52,8 @@ jobs:
         #
         # --output-dir    Where to output the generated project dir into
         run: cookiecutter . --no-input --output-dir ./cookiecutter-temp
+      - name: Copy original cookiecutter config
+        run: cp cookiecutter.json ./cookiecutter-temp/
 
       - name: Prepare root directory
         shell: bash
@@ -72,6 +74,14 @@ jobs:
           rsync -r ./cookiecutter-temp/*/ . && \
           rm -rf ./cookiecutter-temp/
 
+
+      - name: Install cruft
+        run: pip3 install cruft
+      - name: Link to template via cruft
+        shell: bash
+        # Remove all files and folder except .git/ and cookiecutter-temp/
+        run: |
+          cruft link https://github.com/bullyrooks/spring-microservice-template --no-input
       - name: Reinitialize git repository
         shell: bash
         # Reinitialize git after scaffolding this repository.
@@ -84,21 +94,3 @@ jobs:
           git add . && \
           git commit -m 'Initial commit' && \
           git push origin temp-branch:main -f
-
-      - name: Install cruft
-        run: pip3 install cruft
-      - name: Link to template via cruft
-        shell: bash
-        # Remove all files and folder except .git/ and cookiecutter-temp/
-        run: |
-          cruft link https://github.com/bullyrooks/spring-microservice-template --no-input
-      - name: Commit cruft file
-        shell: bash
-        # Remove all files and folder except .git/ and cookiecutter-temp/
-        run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com" && \
-          git config --global user.name "github-actions[bot]" && \
-          git checkout --orphan cruft-add && \
-          git add . && \
-          git commit -m 'Add cruft file' && \
-          git push origin cruft-add:main -f
