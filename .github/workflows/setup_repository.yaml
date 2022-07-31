@@ -92,3 +92,13 @@ jobs:
         # Remove all files and folder except .git/ and cookiecutter-temp/
         run: |
           cruft link https://github.com/bullyrooks/spring-microservice-template --no-input
+      - name: Commit cruft file
+        shell: bash
+        # Remove all files and folder except .git/ and cookiecutter-temp/
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com" && \
+          git config --global user.name "github-actions[bot]" && \
+          git checkout --orphan cruft-add && \
+          git add . && \
+          git commit -m 'Add cruft file' && \
+          git push origin cruft-add:main -f
