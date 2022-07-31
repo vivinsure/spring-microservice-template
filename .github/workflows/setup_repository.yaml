@@ -47,7 +47,7 @@ jobs:
         # Remove all files and folder except .git/ and cookiecutter-temp/
         run: |
           mkdir cc-stash
-          cp ./cookiecutter.json cc-stash/cookiecutter.json
+          cp cookiecutter.json cc-stash/cookiecutter.json
 
       - name: Scaffolding repository
         # cookiecutter is command-line utility to create projects from templates
@@ -60,7 +60,7 @@ jobs:
         run: cookiecutter . --no-input --output-dir ./cookiecutter-temp
 
       - name: Copy original cookiecutter config
-        run: cp cc-stash/cookiecutter.json cookiecutter-temp/cookiecutter.json
+        run: cp cc-stash/cookiecutter.json cookiecutter-temp/
 
       - name: Prepare root directory
         shell: bash
