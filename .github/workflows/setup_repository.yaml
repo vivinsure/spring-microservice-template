@@ -26,7 +26,7 @@ jobs:
             https://api.github.com/repos/$GITHUB_REPOSITORY \
             | jq --exit-status '.is_template == false';
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           # Comminting workflow files using the regular GITHUB_TOKEN will fail with
           # `Git Error: Refusing to allow a GitHub App to create or update workflow without workflows permission`.
@@ -52,8 +52,9 @@ jobs:
         #
         # --output-dir    Where to output the generated project dir into
         run: cookiecutter . --no-input --output-dir ./cookiecutter-temp
+
       - name: Copy original cookiecutter config
-        run: cp cookiecutter.json ./cookiecutter-temp/
+        run: cp ./cookiecutter.json ./cookiecutter-temp/cookiecutter.json
 
       - name: Prepare root directory
         shell: bash
