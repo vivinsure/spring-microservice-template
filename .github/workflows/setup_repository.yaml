@@ -42,12 +42,6 @@ jobs:
 
       - name: Install dependencies
         run: pip install cookiecutter
-      - name: Stash cookie cutter config
-        shell: bash
-        run: |
-          mkdir cc-stash
-          cp cookiecutter.json cc-stash/cookiecutter.json
-          cat cc-stash/cookiecutter.json
 
       - name: Scaffolding repository
         # cookiecutter is command-line utility to create projects from templates
@@ -59,11 +53,6 @@ jobs:
         # --output-dir    Where to output the generated project dir into
         run: cookiecutter . --no-input --output-dir ./cookiecutter-temp
 
-      - name: Copy original cookiecutter config
-        run: cp cc-stash/cookiecutter.json ./cookiecutter-temp/
-      - name: output .json
-        run: cat cookiecutter-temp/cookiecutter.json
-
       - name: Prepare root directory
         shell: bash
         # Remove all files and folder except .git/ and cookiecutter-temp/
@@ -71,6 +60,7 @@ jobs:
           find ./ -maxdepth 1 \
           ! -name '.git' \
           ! -name 'cookiecutter-temp' \
+          ! -name 'cookiecutter.json' \
           ! -name '.' \
           ! -exec rm -rf {} +
 
@@ -80,7 +70,7 @@ jobs:
         # generated project by cookiecutter. We want to move all the project
         # files into the root directory so we can reinitialize git in the next step
         run: |
-          cp -r ./cookiecutter-temp/*/ . && \
+          rsync -r ./cookiecutter-temp/*/ . && \
           rm -rf ./cookiecutter-temp/
 
 
