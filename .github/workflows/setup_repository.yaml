@@ -60,7 +60,7 @@ jobs:
         run: cookiecutter . --no-input --output-dir ./cookiecutter-temp
 
       - name: Copy original cookiecutter config
-        run: cp cc-stash/cookiecutter.json cookiecutter-temp/
+        run: cp cc-stash/cookiecutter.json ./cookiecutter-temp/
       - name: output .json
         run: cat cookiecutter-temp/cookiecutter.json
 
@@ -80,7 +80,7 @@ jobs:
         # generated project by cookiecutter. We want to move all the project
         # files into the root directory so we can reinitialize git in the next step
         run: |
-          rsync -r ./cookiecutter-temp/*/ . && \
+          cp -r ./cookiecutter-temp/*/ . && \
           rm -rf ./cookiecutter-temp/
 
 
