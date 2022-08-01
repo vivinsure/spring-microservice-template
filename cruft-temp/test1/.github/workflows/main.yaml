@@ -1,0 +1,54 @@
+name: Main Branch Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ci-tests-${{ github.ref }}-1
+  cancel-in-progress: true
+
+jobs:
+  call-get-version:
+    uses: bullyrooks/service-workflow/.github/workflows/get-version.yaml@main
+    secrets:
+      GH_TOKEN: ${{ secrets.CHART_TOKEN }}
+
+  call-compile:
+    uses: bullyrooks/service-workflow/.github/workflows/compile.yaml@main
+
+  call-build-image-with-push:
+    needs:
+      - call-get-version
+    uses: bullyrooks/service-workflow/.github/workflows/build-image-with-push.yaml@main
+    with:
+      version: ${{ needs.call-get-version.outputs.version }}
+      image-name: bullyrooks/test1
+    secrets:
+      canister-username: ${{ secrets.CANISTER_USERNAME }}
+      canister-password: ${{ secrets.CANISTER_PASSWORD }}
+
+  call-helm-chart:
+    needs:
+      - call-get-version
+      - call-build-image-with-push
+    uses: bullyrooks/service-workflow/.github/workflows/helm-chart.yaml@main
+    secrets:
+      access-token: ${{ secrets.CHART_TOKEN }}
+    with:
+      version: ${{ needs.call-get-version.outputs.version }}
+
+  call-deploy:
+    needs:
+      - call-helm-chart
+      - call-get-version
+    uses: bullyrooks/service-workflow/.github/workflows/okteto-deploy.yaml@main
+    with:
+      version: ${{ needs.call-get-version.outputs.version }}
+      service-name: test1
+      helm-chart: bullyrooks/test1
+    secrets:
+      kube-config: ${{ secrets.KUBECONFIG }}
+

@@ -1,0 +1,19 @@
+name: Feature Branch Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches-ignore:
+      - main
+
+concurrency:
+  group: ci-tests-${{ github.ref }}-1
+  cancel-in-progress: true
+
+jobs:
+  call-compile:
+    uses: bullyrooks/service-workflow/.github/workflows/compile.yaml@main
+
+  call-build-image:
+    uses: bullyrooks/service-workflow/.github/workflows/build-image-no-push.yaml@main
+

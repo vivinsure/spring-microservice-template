@@ -1,12 +1,12 @@
 {
-  "service_name": "Test1",
+  "service_name": "Spring2",
   "application_name": "{{ cookiecutter.service_name|replace('-', ' ')|replace(' ', '')|replace('.', '')|trim() }}Application",
   "service_slug": "{{ cookiecutter.service_name.lower()|replace('-', ' ')|replace(' ', '-')|replace('.', '-')|trim() }}",
   "package_name": "{{ cookiecutter.service_slug.replace('-','_') }}",
   "service_port": "8080",
   "service_registry": "bullyrooks/{{ cookiecutter.service_slug }}",
   "service_namespace": "bullyrooks",
-  "githuborg": "bullyrooks",
+  "githuborg": "bullyrooks-org",
 
   "_copy_without_render": [
       "helm/{{ cookiecutter.service_slug }}/templates/*"
