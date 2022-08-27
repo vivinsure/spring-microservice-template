@@ -52,7 +52,7 @@ jobs:
       version: {%raw%}${{ needs.call-get-version.outputs.version }}{%endraw%}
       service-name: {{ cookiecutter.service_slug }}
       helm-chart: {{ cookiecutter.service_registry }}
-      chart-location: {{ cookiecutter.service_registry }}
+      chart-location: {{ cookiecutter.chart_location }}
     secrets:
       kube-config: {%raw%}${{ secrets.KUBECONFIG }}{%endraw%}
 
