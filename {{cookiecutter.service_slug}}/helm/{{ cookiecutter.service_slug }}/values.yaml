@@ -7,7 +7,7 @@ replicaCount: 1
 serviceName: {{ cookiecutter.service_slug }}
 
 image:
-  repository: cloud.canister.io:5000/{{ cookiecutter.service_registry }}
+  repository: ghcr.io/{{ cookiecutter.service_registry }}
   pullPolicy: Always
 
 imagePullSecrets:
