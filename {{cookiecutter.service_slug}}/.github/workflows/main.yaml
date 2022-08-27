@@ -37,7 +37,7 @@ jobs:
       - call-build-image-with-push
     uses: vivinsure/service-workflow/.github/workflows/helm-chart.yaml@main
     secrets:
-      access-token: {%raw%}${{ secrets.CHART_TOKEN }}{%endraw%}
+      access-token: {%raw%}${{ secrets.GH_TOKEN }}{%endraw%}
     with:
       version: {%raw%}${{ needs.call-get-version.outputs.version }}{%endraw%}
       chart-location: {{ cookiecutter.chart_location }}

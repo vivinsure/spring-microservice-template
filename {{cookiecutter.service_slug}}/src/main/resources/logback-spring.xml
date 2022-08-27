@@ -9,11 +9,6 @@
             </Pattern>
         </layout>
     </appender>
-    <appender name="LogzioLogbackAppender" class="io.logz.logback.LogzioLogbackAppender">
-        <token>${LOGZIO_LOGGER_TOKEN}</token>
-        <logzioUrl>https://listener.logz.io:8071</logzioUrl>
-        <logzioType>{{ cookiecutter.service_slug }}</logzioType>
-    </appender>
     <springProfile name="dev">
         <root level="info">
             <appender-ref ref="CONSOLE"/>
@@ -22,7 +17,6 @@
     <springProfile name="!dev">
         <root level="info">
             <appender-ref ref="CONSOLE"/>
-            <appender-ref ref="LogzioLogbackAppender"/>
         </root>
     </springProfile>
 </configuration>
