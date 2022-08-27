@@ -21,7 +21,7 @@ management:
 logging:
   level:
     root: INFO
-    com.bullyrooks: DEBUG
+    com.vivinsure: DEBUG
     io.micrometer.logzio: WARN
 logzio:
   metrics:

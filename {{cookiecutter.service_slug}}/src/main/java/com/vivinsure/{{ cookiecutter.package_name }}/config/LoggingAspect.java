@@ -1,4 +1,4 @@
-package com.bullyrooks.{{ cookiecutter.package_name }}.config;
+package com.vivinsure.{{ cookiecutter.package_name }}.config;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,7 +34,7 @@ public class LoggingAspect {
 
 
 
-    @Pointcut("within(@com.bullyrooks.{{ cookiecutter.package_name }}.config.LoggingEnabled *)")
+    @Pointcut("within(@com.vivinsure.{{ cookiecutter.package_name }}.config.LoggingEnabled *)")
     public void loggingEnabled() {
     }
 

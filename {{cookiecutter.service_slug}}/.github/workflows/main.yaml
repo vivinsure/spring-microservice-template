@@ -12,43 +12,47 @@ concurrency:
 
 jobs:
   call-get-version:
-    uses: bullyrooks/service-workflow/.github/workflows/get-version.yaml@main
+    uses: vivinsure/service-workflow/.github/workflows/get-version.yaml@main
     secrets:
-      GH_TOKEN: {%raw%}${{ secrets.CHART_TOKEN }}{%endraw%}
+      GH_TOKEN: {%raw%}${{ secrets.GH_TOKEN }}{%endraw%}
 
   call-compile:
-    uses: bullyrooks/service-workflow/.github/workflows/compile.yaml@main
+    uses: vivinsure/service-workflow/.github/workflows/compile.yaml@main
 
   call-build-image-with-push:
     needs:
       - call-get-version
-    uses: bullyrooks/service-workflow/.github/workflows/build-image-with-push.yaml@main
+    uses: vivinsure/service-workflow/.github/workflows/build-image-with-push.yaml@main
     with:
       version: {%raw%}${{ needs.call-get-version.outputs.version }}{%endraw%}
       image-name: {{ cookiecutter.service_registry }}
+      registry: ghcr.io
     secrets:
-      canister-username: {%raw%}${{ secrets.CANISTER_USERNAME }}{%endraw%}
-      canister-password: {%raw%}${{ secrets.CANISTER_PASSWORD }}{%endraw%}
+      canister-username: {%raw%}${{ github.actor }}{%endraw%}
+      canister-password: {%raw%}${{ secrets.GH_TOKEN }}{%endraw%}
 
   call-helm-chart:
     needs:
       - call-get-version
       - call-build-image-with-push
-    uses: bullyrooks/service-workflow/.github/workflows/helm-chart.yaml@main
+    uses: vivinsure/service-workflow/.github/workflows/helm-chart.yaml@main
     secrets:
       access-token: {%raw%}${{ secrets.CHART_TOKEN }}{%endraw%}
     with:
       version: {%raw%}${{ needs.call-get-version.outputs.version }}{%endraw%}
+      chart-location: {{ cookiecutter.chart_location }}
+      gh-org: {{ cookiecutter.github_org }}
 
   call-deploy:
     needs:
       - call-helm-chart
       - call-get-version
-    uses: bullyrooks/service-workflow/.github/workflows/okteto-deploy.yaml@main
+    uses: vivinsure/service-workflow/.github/workflows/okteto-deploy.yaml@main
     with:
       version: {%raw%}${{ needs.call-get-version.outputs.version }}{%endraw%}
       service-name: {{ cookiecutter.service_slug }}
       helm-chart: {{ cookiecutter.service_registry }}
+      chart-location: {{ cookiecutter.service_registry }}
     secrets:
       kube-config: {%raw%}${{ secrets.KUBECONFIG }}{%endraw%}
 

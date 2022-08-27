@@ -1,6 +1,6 @@
-package com.bullyrooks.{{ cookiecutter.package_name }}.controller;
+package com.vivinsure.{{ cookiecutter.package_name }}.controller;
 
-import com.bullyrooks.{{ cookiecutter.package_name }}.controller.dto.HelloWorldResponse;
+import com.vivinsure.{{ cookiecutter.package_name }}.controller.dto.HelloWorldResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

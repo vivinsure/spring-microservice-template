@@ -8,7 +8,7 @@
         <version>2.7.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.bullyrooks</groupId>
+    <groupId>com.vivinsure</groupId>
     <artifactId>{{ cookiecutter.service_slug }}</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>{{ cookiecutter.service_name }}</name>

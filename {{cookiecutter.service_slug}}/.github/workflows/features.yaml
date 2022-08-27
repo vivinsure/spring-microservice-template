@@ -12,8 +12,8 @@ concurrency:
 
 jobs:
   call-compile:
-    uses: bullyrooks/service-workflow/.github/workflows/compile.yaml@main
+    uses: vivinsure/service-workflow/.github/workflows/compile.yaml@main
 
   call-build-image:
-    uses: bullyrooks/service-workflow/.github/workflows/build-image-no-push.yaml@main
+    uses: vivinsure/service-workflow/.github/workflows/build-image-no-push.yaml@main
 

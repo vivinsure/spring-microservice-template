@@ -5,7 +5,7 @@ on:
       - cookiecutter.json
 jobs:
   setup:
-    if: ${{ github.repository	!= 'bullyrooks/spring-microservice-template' }}
+    if: ${{ github.repository	!= 'vivinsure/spring-microservice-template' }}
     name: Reinitialize repository
     runs-on: ubuntu-latest
     env:
@@ -83,7 +83,7 @@ jobs:
         shell: bash
         # Remove all files and folder except .git/ and cookiecutter-temp/
         run: |
-          cruft link https://github.com/bullyrooks/spring-microservice-template --config-file cookiecutter.json --no-input
+          cruft link https://github.com/vivinsure/spring-microservice-template --config-file cookiecutter.json --no-input
       - name: Reinitialize git repository
         shell: bash
         # Reinitialize git after scaffolding this repository.

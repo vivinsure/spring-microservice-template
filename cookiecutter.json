@@ -1,12 +1,13 @@
 {
-  "service_name": "Test1",
+  "service_name": "Test",
   "application_name": "{{ cookiecutter.service_name|replace('-', ' ')|replace(' ', '')|replace('.', '')|trim() }}Application",
   "service_slug": "{{ cookiecutter.service_name.lower()|replace('-', ' ')|replace(' ', '-')|replace('.', '-')|trim() }}",
   "package_name": "{{ cookiecutter.service_slug.replace('-','_') }}",
   "service_port": "8080",
-  "service_registry": "bullyrooks/{{ cookiecutter.service_slug }}",
-  "service_namespace": "bullyrooks",
-  "githuborg": "bullyrooks",
+  "github_org": "vivinsure",
+  "service_registry": "{{ cookiecutter.github_org }}/{{ cookiecutter.service_slug }}",
+  "service_namespace": "{{ cookiecutter.github_org }}",
+  "chart_location": "https://{{ cookiecutter.github_org }}.github.io/helm-charts/",
 
   "_copy_without_render": [
       "helm/{{ cookiecutter.service_slug }}/templates/*"
