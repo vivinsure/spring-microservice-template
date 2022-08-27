@@ -8,8 +8,6 @@ jobs:
     if: ${{ github.repository	!= 'vivinsure/spring-microservice-template' }}
     name: Reinitialize repository
     runs-on: ubuntu-latest
-    env:
-      REPO_SETUP_TOKEN: ${{ secrets.REPO_SETUP_TOKEN }}
     steps:
       - name: Do not run scaffolding on template repository
         shell: bash
@@ -34,7 +32,7 @@ jobs:
           #
           # Generate a new personal access token with the workflow `scope` does the trick.
           # Checkout my blog post https://stefanbuck.com/blog for alternative options
-          token: ${{ env.REPO_SETUP_TOKEN || secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
 
       - uses: actions/setup-python@v2
         with:
