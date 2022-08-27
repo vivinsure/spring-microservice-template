@@ -28,8 +28,8 @@ jobs:
       image-name: {{ cookiecutter.service_registry }}
       registry: ghcr.io
     secrets:
-      canister-username: {%raw%}${{ github.actor }}{%endraw%}
-      canister-password: {%raw%}${{ secrets.GH_TOKEN }}{%endraw%}
+      registry-username: {%raw%}${{ github.actor }}{%endraw%}
+      registry-password: {%raw%}${{ secrets.GH_TOKEN }}{%endraw%}
 
   call-helm-chart:
     needs:
