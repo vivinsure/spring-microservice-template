@@ -1,6 +1,6 @@
 {
   "branches": "main",
-  "repositoryUrl": "https://github.com/{{ cookiecutter.githuborg }}/{{ cookiecutter.service_slug }}",
+  "repositoryUrl": "https://github.com/{{ cookiecutter.github_org }}/{{ cookiecutter.service_slug }}",
   "debug": "false",
   "tagFormat": "${version}",
   "plugins": [
