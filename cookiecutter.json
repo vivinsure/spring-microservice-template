@@ -8,7 +8,7 @@
   "service_registry": "{{ cookiecutter.github_org }}/{{ cookiecutter.service_slug }}",
   "service_namespace": "{{ cookiecutter.github_org }}",
   "chart_location": "https://{{ cookiecutter.github_org }}.github.io/helm-charts/",
-
+  "k8s_namespace" : "{{ cookiecutter.github_org }}-brianrook",
   "_copy_without_render": [
       "helm/{{ cookiecutter.service_slug }}/templates/*"
   ]
